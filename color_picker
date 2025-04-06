@@ -1,0 +1,20 @@
+import tkinter as tk
+from tkinter import colorchooser
+
+def choose_color():
+    color = colorchooser.askcolor()[1]  # Trả về mã màu hex
+    if color:
+        root.config(bg=color)
+        label.config(text=f"🌈 Màu bạn chọn: {color}", bg=color)
+
+root = tk.Tk()
+root.title("🎨 Bộ chọn màu nền")
+root.geometry("400x200")
+
+label = tk.Label(root, text="Nhấn nút để chọn màu nền", font=("Arial", 16))
+label.pack(pady=30)
+
+btn = tk.Button(root, text="🖌️ Chọn màu", command=choose_color, font=("Arial", 14))
+btn.pack()
+
+root.mainloop()
