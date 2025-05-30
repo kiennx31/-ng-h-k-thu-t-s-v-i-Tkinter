@@ -1,0 +1,53 @@
+import tkinter as tk
+
+def click(char):
+    current = entry.get()
+    entry.delete(0, tk.END)
+    entry.insert(0, current + str(char))
+
+def clear():
+    entry.delete(0, tk.END)
+
+def calculate():
+    try:
+        result = eval(entry.get())
+        entry.delete(0, tk.END)
+        entry.insert(0, str(result))
+    except Exception:
+        entry.delete(0, tk.END)
+        entry.insert(0, "Lỗi")
+
+root = tk.Tk()
+root.title("🧮 Máy tính đơn giản")
+root.geometry("300x400")
+root.resizable(False, False)
+
+entry = tk.Entry(root, font=("Arial", 20), borderwidth=2, relief="solid", justify="right")
+entry.pack(pady=10, fill="x", padx=10)
+
+buttons = [
+    ['7', '8', '9', '/'],
+    ['4', '5', '6', '*'],
+    ['1', '2', '3', '-'],
+    ['0', '.', '=', '+']
+]
+
+frame = tk.Frame(root)
+frame.pack()
+
+for row in buttons:
+    row_frame = tk.Frame(frame)
+    row_frame.pack(expand=True, fill="both")
+    for char in row:
+        if char == "=":
+            btn = tk.Button(row_frame, text=char, width=5, height=2, font=("Arial", 16),
+                            command=calculate)
+        else:
+            btn = tk.Button(row_frame, text=char, width=5, height=2, font=("Arial", 16),
+                            command=lambda c=char: click(c))
+        btn.pack(side="left", expand=True, fill="both")
+
+clear_btn = tk.Button(root, text="C", font=("Arial", 16), fg="white", bg="red", command=clear)
+clear_btn.pack(pady=10, padx=10, fill="x")
+
+root.mainloop()
